@@ -1,40 +1,56 @@
 import js
 p5 = js.window
 
-#images
+program_state = 'start'
+#bg image
 bg = p5.loadImage('bg.png')  # load image data to bg
-player = p5.loadImage('player.png')  # load image data to player
-ib1 = p5.loadImage('ib_1.png') #iceberg 1
-ib2 = p5.loadImage('ib_2.png') #iceberg_2
-ib3 = p5.loadImage('ib_3.png') #iceberg_3
-
-#load font
-font = p5.loadFont('PressStart2P.otf')  # load font data to font
+#set font
+font = p5.loadFont('PressStart2P.otf')
 
 class Player:  
     x = 0  # set x at 0
     y = 0  # set y at 0
+    player_img = p5.loadImage('player.png')  # load image data to player
+    
     def draw(self):
-        p5.image(player, 105, 175, player.width*0.05, player.height*0.05)  
+        global program_state
+
+        if (program_state == 'start'or program_state == 'play' or program_state == 'gameover'):
+            p5.image(self.player_img, self.x, self.y)
+
+class Iceberg:
+    x = 0
+    y = 0
+    ib_1 = p5.loadImage('ib_1.png') 
+
+    def draw(self):
+        global program_state
         
-    
+        if (program_state == 'start'):
+            p5.image(ib_1, slef.x, self,y)
+           
 
-    def __init__(self, x, y, distance_x, distance_y):
-        self.x = x  # initialize attribute x 
-        self.y = y  # initialize attribute y 
-        self.distance_x = distance_x
-        self.distance_y = distance_y
-
-player = Player(150,150)
 def setup():
-    p5.createCanvas(300, 300)   
-
-def draw():
-    p5.background(255)
-    p5.image(bg, 0, 0, bg.width*0.15, bg.height*0.15)
+    p5.createCanvas(300, 300) 
+    print('finished setup') 
     
+def draw():
+    p5.background(255) 
+    p5.image(bg, 0, 0, bg.width*0.15, bg.height*0.15)
+    player.draw()
 
-def keyPressed(event):
+    if (program_state == 'start'):
+        p5.textFont(font)
+        p5.textSize(20)
+        p5.text('Arctic Voyage', 46, 115)
+        p5.textSize(10)
+        p5.text('press any key to start!', 40,130) 
+     
+    elif (program_state == 'play'):
+        p5.fill(255)
+         
+
+def keyPressed(event): 
     if(300 > player and player > 0):
         if(p5.keyCode == p5.RIGHT_ARROW):
            print('move point 10 pixels to the right..')
@@ -51,7 +67,7 @@ def keyPressed(event):
     if(300 <= player):
         if(p5.keyCode == p5.LEFT_ARROW):
             print('move point 10 pixels to the left..')
-            player.move_player(-10, 0)  
+            player.move_player(-10, 0)   
 
 def keyReleased(event):
     pass
