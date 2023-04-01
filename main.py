@@ -77,7 +77,7 @@ def draw():
     ib_2.draw()
     ib_3.draw()
     
-    dis = p5.dist(player.x , player.y , iceberg.x , iceberg.y)
+    #dis = p5.dist(player.x , player.y , iceberg.x , iceberg.y)
 
     elif(dis <= 15):
         player.distance_x = 0
