@@ -59,32 +59,36 @@ ib_2 = Medium(p5.random(1,300),0,0.5)
 ib_3 = Small(p5.random(1,300),0,0.5)
 
 def draw():
+    global program_state
+    
     p5.background(255) 
     p5.image(bg, 0, 0, bg.width*0.15, bg.height*0.15)
     player.draw()
-
+    
     if (program_state == 'start'):
         p5.textFont(font)
         p5.textSize(20)
         p5.text('ARCTIC VOYAGE', 46, 115)
         p5.textSize(10)
         p5.text('click anywhere to start!', 40,130) 
-     
-    elif (program_state == 'play'):
+    
+    if (program_state == 'play'):
         p5.fill(255)
-
+        
     ib_1.draw()
     ib_2.draw()
     ib_3.draw()
     
-    #dis = p5.dist(player.x , player.y , iceberg.x , iceberg.y)
-
-    elif(dis <= 15):
+    dis = p5.dist(player.x , player.y , iceberg.x , iceberg.y)
+    
+    if (dis <= 15):
         player.distance_x = 0
         player.distance_y = 0
         iceberg.distance_x = 0
         iceberg.distance_y = 0
 
+        program_state = 'gameover'
+        
         p5.fill(0)
         p5.textFont(font)
         p5.textSize(30)
@@ -116,6 +120,9 @@ def keyReleased(event):
 def mousePressed(event):
     if(program_state == 'start'):
         program_state = 'play'
+
+    if(program_state == 'gameover'):
+        program_state = 'start'
 
 def mouseReleased(event):
     pass
