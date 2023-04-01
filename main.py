@@ -102,7 +102,7 @@ def keyPressed(event):
     if(program_state == 'start'):
 
         
-    if(program_state =='play'):
+    if(program_state == 'play'):
         if(300 > player and player > 0):
             if(p5.keyCode == p5.RIGHT_ARROW):
                 player.move_player(10, 0)
