@@ -121,7 +121,7 @@ def keyPressed(event):
     global program_state
         
     if(program_state == 'play'):
-        if(300 > player.x and player.x > 0):
+        if(265 > player.x and player.x > 0):
             if(p5.keyCode == p5.RIGHT_ARROW):
                 player.move_player(10, 0)
             if(p5.keyCode == p5.LEFT_ARROW):
@@ -131,7 +131,7 @@ def keyPressed(event):
             if(p5.keyCode == p5.RIGHT_ARROW):
                 player.move_player(10, 0) 
                 
-        if(300 <= player.x):
+        if(265 <= player.x):
             if(p5.keyCode == p5.LEFT_ARROW):
                 player.move_player(-10, 0)   
 
@@ -148,5 +148,8 @@ def mousePressed(event):
         program_state = 'start'
 
 def mouseReleased(event):
-    pass
+    global program_state
+
+    if(program_state == 'gameover'):
+        program_state = 'start'
     
