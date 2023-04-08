@@ -34,7 +34,7 @@ class Iceberg:
 class Big(Iceberg):
     ib_1 = p5.loadImage('ib_1.png')
     def draw(self):
-        p5.image(self.ib_1, self.x, self.y)
+        p5.image(self.ib_1, self.x, self.y,self.ib_1.width*2, self.ib_1.height*2)
 
 
 class Medium(Iceberg):
@@ -68,6 +68,14 @@ def draw():
     global program_state
     p5.background(255) 
     background.draw()
+        
+    player.draw()
+    
+    dis1 = p5.dist(player.x , player.y , ib_1.x , ib_1.y)
+    dis2 = p5.dist(player.x , player.y , ib_2.x , ib_2.y)
+    dis3 = p5.dist(player.x , player.y , ib_3.x , ib_3.y)
+
+
     if (program_state == 'start'):
         p5.fill(255)
         p5.textFont(font)
@@ -76,12 +84,6 @@ def draw():
         p5.textSize(10)
         p5.text('click anywhere to start!', 40,130) 
         
-    player.draw()
-    
-    dis1 = p5.dist(player.x , player.y , ib_1.x , ib_1.y)
-    dis2 = p5.dist(player.x , player.y , ib_2.x , ib_2.y)
-    dis3 = p5.dist(player.x , player.y , ib_3.x , ib_3.y)
-    
     if (program_state == 'play'):
         p5.fill(255)
         
@@ -100,11 +102,14 @@ def draw():
         ib_1.y = ib_1.y + ib_1.speed
         ib_2.y = ib_2.y + ib_2.speed
         ib_3.y = ib_3.y + ib_3.speed
-    
-    
-    if (dis1 <= 25 or dis2 <= 25 or dis3 <= 25):
+        
+        if (dis1 <= 59 or dis2 <= 25 or dis3 <= 25):
+            program_state = 'gameover'
 
-        program_state = 'gameover'
+    if (program_state == 'gameover'):
+        resetProj(ib_1)
+        resetProj(ib_2)
+        resetProj(ib_3)
         
         p5.fill(255)
         p5.textFont(font)
@@ -144,7 +149,7 @@ def mousePressed(event):
     if(program_state == 'start'):
         program_state = 'play'
 
-    elif(program_state == 'gameover'):
+    if(program_state == 'gameover'):
         program_state = 'start'
 
 def mouseReleased(event):
@@ -152,4 +157,4 @@ def mouseReleased(event):
 
     if(program_state == 'gameover'):
         program_state = 'start'
-    
+        
